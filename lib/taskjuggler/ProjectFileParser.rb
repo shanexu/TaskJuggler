@@ -55,6 +55,9 @@ class TaskJuggler
         error('illegal_extension', "Project file name must end with " +
               '\'.tjp\' extension')
       end
+      sys_now = Time.now
+      @scanner.addMacro(Macro.new('sysnow', sys_now.strftime("%Y-%m-%d"),
+                                  @scanner.sourceFileInfo))
       @scanner.open(fileNameIsBuffer)
 
       @property = nil
