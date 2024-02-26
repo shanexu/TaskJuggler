@@ -56,7 +56,18 @@ class TaskJuggler
               '\'.tjp\' extension')
       end
       sys_now = Time.now
+      current_date = Date.today
+      current_day_of_week = current_date.wday
+      days_to_monday = current_day_of_week > 1 ? 1 - current_day_of_week : 6
+      monday = current_date + days_to_monday
+      sunday = monday + 6
       @scanner.addMacro(Macro.new('sysnow', sys_now.strftime("%Y-%m-%d"),
+                                  @scanner.sourceFileInfo))
+      @scanner.addMacro(Macro.new('systoday', current_date.to_s,
+                                  @scanner.sourceFileInfo))
+      @scanner.addMacro(Macro.new('sysmonday', monday.to_s,
+                                  @scanner.sourceFileInfo))
+      @scanner.addMacro(Macro.new('syssunday', sunday.to_s,
                                   @scanner.sourceFileInfo))
       @scanner.open(fileNameIsBuffer)
 
